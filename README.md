@@ -79,15 +79,15 @@ deepseek-harness-web/
 
 插件在**镜像构建**时由 `scripts/bake-profile-web.sh` 读取 `dsh/plugins.txt`，执行 `dsh plugin --profile web add …`，结果写入 `/opt/dsh-web/profile-web`。当前列表：
 
-| 源                                                                                            | 说明                                                                                                                                                                       |
-|----------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`ds-bot`](https://www.npmjs.com/package/ds-bot)                                             | **DS Bot**：长驻 Bot 团队。支持 Main Bot、Bot 互发消息、群聊、独立工作目录与权限预设、记忆与用量统计等。把单会话 Web UI 扩展成可协作的多智能体工作区。仓库：[Fei2411/DS-Bot](https://github.com/Fei2411/DS-Bot)                      |
+| 源                                                                                            | 说明                                                                                                                                                          |
+|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`ds-bot`](https://www.npmjs.com/package/ds-bot)                                             | **DS Bot**：长驻 Bot 团队。支持 Main Bot、Bot 互发消息、群聊、独立工作目录与权限预设、记忆与用量统计等。把单会话 Web UI 扩展成可协作的多智能体工作区。仓库：[Fei2411/DS-Bot](https://github.com/Fei2411/DS-Bot)         |
 | [`dsh-vault`](https://www.npmjs.com/package/dsh-vault)                                       | **加密凭据库**：主密码 + AES-256-GCM 存用户名/邮箱/手机/密码、TOTP、SSH / API Key / OAuth 等；提供模型工具（增删改查、搜索、生成密码、TOTP）与设置页。搜索结果不含密文。仓库：[Ox0400/dsh-vault](https://github.com/Ox0400/dsh-vault) |
-| [`dsh-messager`](https://github.com/ly6170/dsh-messager)                                       | **消息通知**：适用于Deepseek Harness的消息提醒信使，可使用飞书、企业微信、钉钉、Telegram、Discord进行通知推送                                                                                                 |
-| [`dsh-jenkins-panel`](https://www.npmjs.com/package/dsh-jenkins-panel)                       | **Jenkins 面板**：一组 `jenkins_*` 工具（触发构建、状态/日志/历史/产物、任务操作等）+ 官方右侧栏可视化（触发总览、任务树、日志与产物）；支持多连接与 Token（走 dsh 凭据）；可选构建失败后自动回推分析。 |
-| [`dsh-web-startup-auth`](https://github.com/GDWhisper/dsh-web-startup-auth/tree/main)                                       | **简单的认证服务**：DSH（DeepSeek Harness）远程 Web 启动 + 用户名/密码认证插件。                                                                                                                 |
-| [`github:yaobohai/dsh-argocd`](https://github.com/yaobohai/dsh-argocd)                       | **DeepSeek Harness 插件：多站点 Argo CD 连接、凭据引用与 Application / Pod 运维工具。 |
-| [`github:fishquito7/dsh-skill-mcp-panel`](https://github.com/Fishquito7/dsh-skill-mcp-panel) | **Skill / MCP 管理面板**：在 Web UI 中管理 skill 与 MCP，便于可视化增删与查看连接状态。 |
+| [`dsh-messager`](https://github.com/ly6170/dsh-messager)                                       | **消息通知**：适用于Deepseek Harness的消息提醒信使，可使用飞书、企业微信、钉钉、Telegram、Discord进行通知推送                                                                                    |
+| [`dsh-jenkins-panel`](https://www.npmjs.com/package/dsh-jenkins-panel)                       | **Jenkins 面板**：一组 `jenkins_*` 工具（触发构建、状态/日志/历史/产物、任务操作等）+ 官方右侧栏可视化（触发总览、任务树、日志与产物）；支持多连接与 Token（走 dsh 凭据）；可选构建失败后自动回推分析。                                    |
+| [`dsh-web-startup-auth`](https://github.com/GDWhisper/dsh-web-startup-auth/tree/main)                                       | **简单的认证服务**：DSH（DeepSeek Harness）远程 Web 启动 + 用户名/密码认证插件。                                                                                                    |
+| [`github:yaobohai/dsh-argocd`](https://github.com/yaobohai/dsh-argocd)                       | **ArgoCD插件** 多站点ArgoCD连接、Application/Pod运维工具。                                                                                                               |
+| [`github:fishquito7/dsh-skill-mcp-panel`](https://github.com/Fishquito7/dsh-skill-mcp-panel) | **Skill / MCP 管理面板**：在 Web UI 中管理 skill 与 MCP，便于可视化增删与查看连接状态。                                                                                               |
 
 > `plugins.txt` 支持注释行与空行；源可以是 npm 包名，或 `github:owner/repo#ref` 等形式（以当前 dsh / pnpm 能识别的为准）。
 
