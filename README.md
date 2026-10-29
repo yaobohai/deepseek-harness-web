@@ -8,11 +8,6 @@
 - ubuntu 24.11.1版本
 - node 24.04 版本
 
-集成的插件:
-
-- 
-- [ArgoCD](https://github.com/yaobohai/dsh-argocd)
-
 ## 功能概览
 
 - 多阶段构建：build 阶段安装 pnpm / dsh、按 `dsh/plugins.txt` bake 插件；runtime 只保留 Node、dsh 与烤好的 profile
