@@ -1,0 +1,59 @@
+#!/bin/sh
+# 在容器内重启 dsh，无需重启整个容器。
+#
+# entrypoint（PID 1）用循环保活 dsh：子进程退出后稍等再拉起。
+# 因此重启 dsh 只需优雅结束当前 dsh 子进程，由 entrypoint 负责拉起。
+#
+# 用法：
+#   dsh-restart                  向 dsh 发 SIGTERM；entrypoint 会重新拉起
+#   dsh-restart --clean          先清空 $DSH_HOME/profiles，再重启，
+#                                让 dsh 从镜像重建插件运行时。
+#                                用于插件装坏导致无法启动，或 profiles 陈旧/损坏。
+#
+# SIGTERM 让 dsh 刷盘收尾；entrypoint 的重启循环会再次拉起它。
+# 无需重启容器。
+set -eu
+
+DSH_HOME="${DSH_HOME:-/root/.dsh}"
+
+# dsh 进程形如：dsh --profile web ...（entrypoint 拼出的 argv）
+dsh_pattern='dsh --profile web'
+
+clean=0
+if [ "${1:-}" = "--clean" ]; then
+  clean=1
+  shift
+fi
+
+find_dsh_pid() {
+  pgrep -f "$dsh_pattern" 2>/dev/null | head -n1 || true
+}
+
+if [ "$clean" -eq 1 ]; then
+  echo "dsh-restart: wiping $DSH_HOME/profiles (dsh will rebuild from the image)..."
+  rm -rf "$DSH_HOME/profiles"
+fi
+
+pid=$(find_dsh_pid)
+if [ -z "$pid" ]; then
+  echo "dsh-restart: no running dsh process found (is the entrypoint alive?)"
+  exit 1
+fi
+
+echo "dsh-restart: sending SIGTERM to dsh (pid $pid)..."
+kill -TERM "$pid"
+
+# entrypoint 约等 2s 后会重新拉起 dsh；这里等待新进程出现。
+new_pid=""
+for i in $(seq 1 30); do
+  sleep 1
+  new_pid=$(find_dsh_pid)
+  [ -n "$new_pid" ] && [ "$new_pid" != "$pid" ] && break
+done
+
+if [ -n "$new_pid" ] && [ "$new_pid" != "$pid" ]; then
+  echo "dsh-restart: dsh is back up (pid $new_pid)."
+else
+  echo "dsh-restart: waiting for dsh to respawn... check the logs if it keeps crashing." >&2
+  exit 1
+fi

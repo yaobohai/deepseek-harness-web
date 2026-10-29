@@ -1,0 +1,12 @@
+# 构建时烤进镜像的 web profile 插件（每行一个，pnpm/dsh 可识别的源）
+# 示例：
+# dsh-plugin-wallpaper-engine
+# github:owner/repo#main
+dsh-vault
+dsh-messager
+ds-bot@^0.2.3
+dsh-jenkins-panel
+@gm-hz/agent-dag-workflow
+github:fishquito7/dsh-skill-mcp-panel
+dsh-web-startup-auth
+github:yaobohai/dsh-argocd
