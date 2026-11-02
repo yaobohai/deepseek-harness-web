@@ -7,6 +7,7 @@
 当前镜像的dsh版本: `0.2.1-rc.2` 基于: 
 - ubuntu 24.11.1版本
 - node 24.04 版本
+- DS-Bot v0.2.5 版本
 
 ## 功能概览
 
@@ -26,7 +27,7 @@ docker pull registry.cn-hangzhou.aliyuncs.com/bohai_repo/deepseek-harness-web:1.
 docker run -itd --name dsh-web \
   --restart unless-stopped \
   -p 3080:3080 \
-  -e DEEPSEEK_API_KEY= \
+  -e DEEPSEEK_API_KEY=${ds_api_key} \
   -e TRUSTED_HOST=${home_url} \
   -e DSH_VAULT_PASSWORD=${vault_passwd} \
   -v ~/.ssh/:/root/.ssh \
